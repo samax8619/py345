@@ -1,4 +1,10 @@
 
+# ----------------------------------------------
+# Autor: Samuel Ignacio Umbariba Manrique
+# Año: 2025
+# ----------------------------------------------
+
+# Clase Puerta
 class Puerta:
     def __init__(self, lado):
         self.lado = lado
@@ -6,20 +12,20 @@ class Puerta:
 
     def instalar(self):
         self.instalada = True
-        print(f" Puerta del lado {self.lado} instalada correctamente.")
+        print(f"Puerta del lado {self.lado} instalada correctamente.")
 
 
-
+# Clase Brazo Robótico
 class BrazoRobotico:
     def __init__(self, id_brazo):
         self.id_brazo = id_brazo
 
     def instalar_puerta(self, puerta):
-        print(f" Brazo {self.id_brazo} instalando puerta del lado {puerta.lado}...")
+        print(f"Brazo {self.id_brazo} instalando puerta del lado {puerta.lado}...")
         puerta.instalar()
 
 
-
+# Clase Auto
 class Auto:
     def __init__(self, modelo, color):
         self.modelo = modelo
@@ -28,27 +34,32 @@ class Auto:
 
     def agregar_puerta(self, puerta):
         self.puertas.append(puerta)
-        print(f" Puerta del lado {puerta.lado} agregada al auto {self.modelo}.")
+        print(f"Puerta del lado {puerta.lado} agregada al auto {self.modelo}.")
 
     def mostrar_info(self):
-        print(f"\n AUTO ENSAMBLADO: Modelo {self.modelo}, Color {self.color}")
+        print(f"\nAUTO ENSAMBLADO: Modelo {self.modelo}, Color {self.color}")
         for puerta in self.puertas:
             estado = "instalada" if puerta.instalada else "no instalada"
             print(f" - Puerta {puerta.lado}: {estado}")
 
 
-
+# Clase Fábrica
 class Fabrica:
     def __init__(self, nombre):
         self.nombre = nombre
         self.brazos = []
+        self.autos = []
 
     def agregar_brazo(self, brazo):
         self.brazos.append(brazo)
-        print(f" Brazo robótico {brazo.id_brazo} agregado a la fábrica {self.nombre}.")
+        print(f"Brazo robótico {brazo.id_brazo} agregado a la fábrica {self.nombre}.")
 
     def ensamblar_auto(self, modelo, color):
-        print(f"\n Iniciando ensamblaje del auto {modelo} ({color})...")
+        if not self.brazos:
+            print("No hay brazos robóticos disponibles para ensamblar el auto.")
+            return None
+
+        print(f"\nIniciando ensamblaje del auto {modelo} ({color})...")
         auto = Auto(modelo, color)
 
         # Crear y agregar puertas
@@ -61,24 +72,54 @@ class Fabrica:
             brazo = self.brazos[i % len(self.brazos)]
             brazo.instalar_puerta(puertas[i])
 
-        print(f" Auto {modelo} ensamblado correctamente.")
+        print(f"Auto {modelo} ensamblado correctamente.")
         auto.mostrar_info()
-        return auto
+        self.autos.append(auto)
+
+    def mostrar_autos(self):
+        if not self.autos:
+            print("No hay autos ensamblados aún.")
+            return
+        print("\n--- LISTA DE AUTOS ENSAMBLADOS ---")
+        for i, auto in enumerate(self.autos, start=1):
+            print(f"{i}. {auto.modelo} ({auto.color})")
+        print("----------------------------------")
 
 
-
-def main():
+# Función de menú principal
+def menu():
     fabrica = Fabrica("AutoTech 2025")
 
-    # Agregar brazos robóticos
-    fabrica.agregar_brazo(BrazoRobotico("A1"))
-    fabrica.agregar_brazo(BrazoRobotico("A2"))
+    while True:
+        print("\n===== MENÚ FÁBRICA DE AUTOS =====")
+        print("1. Agregar brazo robótico")
+        print("2. Ensamblar nuevo auto")
+        print("3. Ver autos ensamblados")
+        print("4. Salir")
+        opcion = input("Seleccione una opción: ")
 
-    # Ensamblar dos autos
-    fabrica.ensamblar_auto("Sedán LX", "Rojo")
-    fabrica.ensamblar_auto("SUV Pro", "Azul")
+        if opcion == "1":
+            id_brazo = input("Ingrese el ID del brazo robótico: ")
+            brazo = BrazoRobotico(id_brazo)
+            fabrica.agregar_brazo(brazo)
+
+        elif opcion == "2":
+            modelo = input("Ingrese el modelo del auto: ")
+            color = input("Ingrese el color del auto: ")
+            fabrica.ensamblar_auto(modelo, color)
+
+        elif opcion == "3":
+            fabrica.mostrar_autos()
+
+        elif opcion == "4":
+            print("Saliendo del programa...")
+            break
+
+        else:
+            print("Opción no válida. Intente de nuevo.")
 
 
-
+# Programa principal
 if __name__ == "__main__":
-    main()
+    menu()
+
