@@ -15,7 +15,7 @@ class BrazoRobotico:
         self.id_brazo = id_brazo
 
     def instalar_puerta(self, puerta):
-        print(f"🤖 Brazo {self.id_brazo} instalando puerta del lado {puerta.lado}...")
+        print(f" Brazo {self.id_brazo} instalando puerta del lado {puerta.lado}...")
         puerta.instalar()
 
 
@@ -28,10 +28,10 @@ class Auto:
 
     def agregar_puerta(self, puerta):
         self.puertas.append(puerta)
-        print(f"🚪 Puerta del lado {puerta.lado} agregada al auto {self.modelo}.")
+        print(f" Puerta del lado {puerta.lado} agregada al auto {self.modelo}.")
 
     def mostrar_info(self):
-        print(f"\n🚗 AUTO ENSAMBLADO: Modelo {self.modelo}, Color {self.color}")
+        print(f"\n AUTO ENSAMBLADO: Modelo {self.modelo}, Color {self.color}")
         for puerta in self.puertas:
             estado = "instalada" if puerta.instalada else "no instalada"
             print(f" - Puerta {puerta.lado}: {estado}")
