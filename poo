@@ -1,1 +1,84 @@
-poo
+# Clase Puerta
+class Puerta:
+    def __init__(self, lado):
+        self.lado = lado
+        self.instalada = False
+
+    def instalar(self):
+        self.instalada = True
+        print(f" Puerta del lado {self.lado} instalada correctamente.")
+
+
+# Clase Brazo Robótico
+class BrazoRobotico:
+    def __init__(self, id_brazo):
+        self.id_brazo = id_brazo
+
+    def instalar_puerta(self, puerta):
+        print(f"🤖 Brazo {self.id_brazo} instalando puerta del lado {puerta.lado}...")
+        puerta.instalar()
+
+
+# Clase Auto
+class Auto:
+    def __init__(self, modelo, color):
+        self.modelo = modelo
+        self.color = color
+        self.puertas = []
+
+    def agregar_puerta(self, puerta):
+        self.puertas.append(puerta)
+        print(f"🚪 Puerta del lado {puerta.lado} agregada al auto {self.modelo}.")
+
+    def mostrar_info(self):
+        print(f"\n🚗 AUTO ENSAMBLADO: Modelo {self.modelo}, Color {self.color}")
+        for puerta in self.puertas:
+            estado = "instalada" if puerta.instalada else "no instalada"
+            print(f" - Puerta {puerta.lado}: {estado}")
+
+
+# Clase Fábrica
+class Fabrica:
+    def __init__(self, nombre):
+        self.nombre = nombre
+        self.brazos = []
+
+    def agregar_brazo(self, brazo):
+        self.brazos.append(brazo)
+        print(f"🔧 Brazo robótico {brazo.id_brazo} agregado a la fábrica {self.nombre}.")
+
+    def ensamblar_auto(self, modelo, color):
+        print(f"\n🏭 Iniciando ensamblaje del auto {modelo} ({color})...")
+        auto = Auto(modelo, color)
+
+        # Crear y agregar puertas
+        puertas = [Puerta("izquierda"), Puerta("derecha")]
+        for p in puertas:
+            auto.agregar_puerta(p)
+
+        # Usar brazos robóticos para instalarlas
+        for i in range(len(puertas)):
+            brazo = self.brazos[i % len(self.brazos)]
+            brazo.instalar_puerta(puertas[i])
+
+        print(f" Auto {modelo} ensamblado correctamente.")
+        auto.mostrar_info()
+        return auto
+
+
+# --- Programa principal ---
+def main():
+    fabrica = Fabrica("AutoTech 2025")
+
+    # Agregar brazos robóticos
+    fabrica.agregar_brazo(BrazoRobotico("A1"))
+    fabrica.agregar_brazo(BrazoRobotico("A2"))
+
+    # Ensamblar dos autos
+    fabrica.ensamblar_auto("Sedán LX", "Rojo")
+    fabrica.ensamblar_auto("SUV Pro", "Azul")
+
+
+# Ejecutar el programa
+if __name__ == "__main__":
+    main()
