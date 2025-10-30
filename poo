@@ -45,10 +45,10 @@ class Fabrica:
 
     def agregar_brazo(self, brazo):
         self.brazos.append(brazo)
-        print(f"🔧 Brazo robótico {brazo.id_brazo} agregado a la fábrica {self.nombre}.")
+        print(f" Brazo robótico {brazo.id_brazo} agregado a la fábrica {self.nombre}.")
 
     def ensamblar_auto(self, modelo, color):
-        print(f"\n🏭 Iniciando ensamblaje del auto {modelo} ({color})...")
+        print(f"\n Iniciando ensamblaje del auto {modelo} ({color})...")
         auto = Auto(modelo, color)
 
         # Crear y agregar puertas
