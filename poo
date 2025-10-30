@@ -1,4 +1,4 @@
-# Clase Puerta
+
 class Puerta:
     def __init__(self, lado):
         self.lado = lado
@@ -9,7 +9,7 @@ class Puerta:
         print(f" Puerta del lado {self.lado} instalada correctamente.")
 
 
-# Clase Brazo Robótico
+
 class BrazoRobotico:
     def __init__(self, id_brazo):
         self.id_brazo = id_brazo
@@ -19,7 +19,7 @@ class BrazoRobotico:
         puerta.instalar()
 
 
-# Clase Auto
+
 class Auto:
     def __init__(self, modelo, color):
         self.modelo = modelo
@@ -37,7 +37,7 @@ class Auto:
             print(f" - Puerta {puerta.lado}: {estado}")
 
 
-# Clase Fábrica
+
 class Fabrica:
     def __init__(self, nombre):
         self.nombre = nombre
@@ -66,7 +66,7 @@ class Fabrica:
         return auto
 
 
-# --- Programa principal ---
+
 def main():
     fabrica = Fabrica("AutoTech 2025")
 
@@ -79,6 +79,6 @@ def main():
     fabrica.ensamblar_auto("SUV Pro", "Azul")
 
 
-# Ejecutar el programa
+
 if __name__ == "__main__":
     main()
